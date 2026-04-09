@@ -1,9 +1,8 @@
-// src/etl/rate-limiter.js
 class RateLimiter {
   constructor(maxRequests, timeWindowMs) {
     this.maxRequests = maxRequests;
     this.timeWindowMs = timeWindowMs;
-    this.requests = new Map(); // ip -> array of timestamps
+    this.requests = new Map();
   }
 
   isAllowed(ip) {

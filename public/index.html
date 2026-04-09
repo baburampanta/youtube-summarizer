@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube TL;DR Summarizer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 { color: #333; margin-bottom: 10px; font-size: 2em; }
+        .subtitle { color: #666; margin-bottom: 30px; }
+        input {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        input:focus { outline: none; border-color: #667eea; }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover:not(:disabled) { transform: translateY(-2px); }
+        button:disabled { opacity: 0.6; cursor: not-allowed; }
+        .loading { text-align: center; padding: 40px; display: none; }
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .results { margin-top: 40px; display: none; }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .section h3 { color: #667eea; margin-bottom: 15px; }
+        .section ul { padding-left: 20px; }
+        .section li { margin-bottom: 10px; line-height: 1.5; }
+        .sentiment {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        .sentiment.positive { background: #d4edda; color: #155724; }
+        .sentiment.negative { background: #f8d7da; color: #721c24; }
+        .sentiment.neutral { background: #fff3cd; color: #856404; }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📺 YouTube TL;DR Summarizer</h1>
+        <div class="subtitle">Too Long; Didn't Watch? Get AI-powered summaries in seconds!</div>
+        
+        <input type="text" id="urlInput" placeholder="Paste YouTube URL here...">
+        <button id="summarizeBtn">🎬 Summarize Video</button>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Fetching transcript and generating summary...</p>
+        </div>
+        
+        <div class="error" id="error"></div>
+        
+        <div class="results" id="results">
+            <div class="section">
+                <h3>📝 Summary</h3>
+                <ul id="summaryList"></ul>
+            </div>
+            
+            <div class="section">
+                <h3>😊 Sentiment</h3>
+                <div id="sentimentBadge"></div>
+                <p id="sentimentExplanation" style="margin-top: 10px;"></p>
+            </div>
+            
+            <div class="section">
+                <h3>💡 Key Takeaways</h3>
+                <ul id="takeawaysList"></ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const urlInput = document.getElementById('urlInput');
+        const summarizeBtn = document.getElementById('summarizeBtn');
+        const loading = document.getElementById('loading');
+        const results = document.getElementById('results');
+        const error = document.getElementById('error');
+        
+        summarizeBtn.addEventListener('click', async () => {
+            const url = urlInput.value.trim();
+            if (!url) {
+                showError('Please enter a YouTube URL');
+                return;
+            }
+            
+            results.style.display = 'none';
+            error.style.display = 'none';
+            loading.style.display = 'block';
+            summarizeBtn.disabled = true;
+            
+            try {
+                const response = await fetch('/api/summarize', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error || data.message || 'Failed to summarize');
+                }
+                
+                displayResults(data);
+            } catch (err) {
+                showError(err.message);
+            } finally {
+                loading.style.display = 'none';
+                summarizeBtn.disabled = false;
+            }
+        });
+        
+        function displayResults(data) {
+            const summaryList = document.getElementById('summaryList');
+            summaryList.innerHTML = '';
+            if (data.summary && Array.isArray(data.summary)) {
+                data.summary.forEach(point => {
+                    const li = document.createElement('li');
+                    li.textContent = point;
+                    summaryList.appendChild(li);
+                });
+            }
+            
+            if (data.sentiment) {
+                const sentimentBadge = document.getElementById('sentimentBadge');
+                const label = data.sentiment.label.toLowerCase();
+                sentimentBadge.className = `sentiment ${label}`;
+                sentimentBadge.textContent = data.sentiment.label.toUpperCase();
+                document.getElementById('sentimentExplanation').textContent = data.sentiment.explanation || '';
+            }
+            
+            const takeawaysList = document.getElementById('takeawaysList');
+            takeawaysList.innerHTML = '';
+            if (data.takeaways && Array.isArray(data.takeaways)) {
+                data.takeaways.forEach(takeaway => {
+                    const li = document.createElement('li');
+                    li.textContent = takeaway;
+                    takeawaysList.appendChild(li);
+                });
+            }
+            
+            results.style.display = 'block';
+        }
+        
+        function showError(message) {
+            error.textContent = message;
+            error.style.display = 'block';
+            setTimeout(() => error.style.display = 'none', 5000);
+        }
+    </script>
+</body>
+</html>
