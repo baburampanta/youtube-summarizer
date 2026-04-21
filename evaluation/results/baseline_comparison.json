@@ -1,0 +1,21 @@
+{
+  "comparisons": [
+    {
+      "case": "TED Talk - Motivation",
+      "llm_quality": 1.0,
+      "baseline_quality": 0.0,
+      "improvement": 1.0
+    },
+    {
+      "case": "Rick Astley - Music Video",
+      "llm_quality": 0.75,
+      "baseline_quality": 0.0,
+      "improvement": 0.75
+    }
+  ],
+  "averages": {
+    "llm_quality": 0.875,
+    "baseline_quality": 0.0,
+    "improvement": 0.875
+  }
+}

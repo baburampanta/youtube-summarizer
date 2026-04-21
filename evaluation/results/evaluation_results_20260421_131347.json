@@ -1,0 +1,79 @@
+{
+  "timestamp": "2026-04-21 13:13:47",
+  "target": "LOCAL",
+  "representative_results": [
+    {
+      "id": "case_1",
+      "name": "TED Talk - The puzzle of motivation",
+      "success": false,
+      "error": {
+        "error": "No captions available",
+        "message": "This video does not have captions or transcript. Try another video."
+      },
+      "latency": 0.09644532203674316
+    },
+    {
+      "id": "case_2",
+      "name": "Rick Astley - Never Gonna Give You Up",
+      "success": false,
+      "error": {
+        "error": "No captions available",
+        "message": "This video does not have captions or transcript. Try another video."
+      },
+      "latency": 0.00874471664428711
+    },
+    {
+      "id": "case_3",
+      "name": "Computer Science - Algorithms",
+      "success": false,
+      "error": {
+        "error": "No captions available",
+        "message": "This video does not have captions or transcript. Try another video."
+      },
+      "latency": 0.005899190902709961
+    },
+    {
+      "id": "case_4",
+      "name": "Product Review - Tech",
+      "success": false,
+      "error": {
+        "error": "No captions available",
+        "message": "This video does not have captions or transcript. Try another video."
+      },
+      "latency": 0.0073702335357666016
+    },
+    {
+      "id": "case_5",
+      "name": "AI Explained - Machine Learning",
+      "success": false,
+      "error": {
+        "error": "No captions available",
+        "message": "This video does not have captions or transcript. Try another video."
+      },
+      "latency": 0.01835799217224121
+    }
+  ],
+  "failure_results": [
+    {
+      "id": "failure_1",
+      "name": "Invalid Video ID",
+      "properly_handled": true,
+      "status": 404,
+      "error": {
+        "error": "No captions available",
+        "message": "This video does not have captions or transcript. Try another video."
+      }
+    },
+    {
+      "id": "failure_2",
+      "name": "Non-YouTube URL",
+      "properly_handled": true,
+      "status": 400,
+      "error": {
+        "error": "Invalid YouTube URL",
+        "message": "Please provide a valid YouTube URL (youtube.com/watch?v=... or youtu.be/...)"
+      }
+    }
+  ],
+  "summary": {}
+}

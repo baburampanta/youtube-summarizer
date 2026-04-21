@@ -1,0 +1,65 @@
+{
+  "representative_cases": [
+    {
+      "id": "case_1",
+      "url": "https://www.youtube.com/watch?v=8jPQjjsBbIc",
+      "name": "TED Talk - The puzzle of motivation",
+      "expected_topics": ["autonomy", "mastery", "purpose", "motivation", "intrinsic"],
+      "expected_sentiment": "positive",
+      "video_length_minutes": 18,
+      "notes": "Classic TED talk about workplace motivation"
+    },
+    {
+      "id": "case_2",
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "name": "Rick Astley - Never Gonna Give You Up",
+      "expected_topics": ["never", "give", "up", "love", "song"],
+      "expected_sentiment": "positive",
+      "video_length_minutes": 3,
+      "notes": "Popular music video, internet meme"
+    },
+    {
+      "id": "case_3",
+      "url": "https://www.youtube.com/watch?v=JGwWNGJdvx8",
+      "name": "Computer Science - Algorithms",
+      "expected_topics": ["algorithm", "data", "structure", "sort", "search"],
+      "expected_sentiment": "neutral",
+      "video_length_minutes": 15,
+      "notes": "Educational computer science content"
+    },
+    {
+      "id": "case_4",
+      "url": "https://www.youtube.com/watch?v=leG0U5wzGIA",
+      "name": "Product Review - Tech",
+      "expected_topics": ["product", "review", "features", "price", "quality"],
+      "expected_sentiment": "mixed",
+      "video_length_minutes": 10,
+      "notes": "Technology product review with pros and cons"
+    },
+    {
+      "id": "case_5",
+      "url": "https://www.youtube.com/watch?v=M7lc1UVf-VE",
+      "name": "AI Explained - Machine Learning",
+      "expected_topics": ["machine", "learning", "data", "model", "training"],
+      "expected_sentiment": "neutral",
+      "video_length_minutes": 12,
+      "notes": "Educational AI/ML content"
+    }
+  ],
+  "failure_cases": [
+    {
+      "id": "failure_1",
+      "url": "https://www.youtube.com/watch?v=invalid_video_id_12345",
+      "name": "Invalid Video ID",
+      "expected_behavior": "Returns error about no captions or invalid video",
+      "expected_status_code": 404
+    },
+    {
+      "id": "failure_2",
+      "url": "https://google.com",
+      "name": "Non-YouTube URL",
+      "expected_behavior": "Returns error about invalid YouTube URL",
+      "expected_status_code": 400
+    }
+  ]
+}

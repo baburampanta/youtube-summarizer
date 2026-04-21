@@ -1,0 +1,104 @@
+{
+  "timestamp": "2026-04-21 13:16:00",
+  "target": "LOCAL",
+  "representative_results": [
+    {
+      "id": "case_1",
+      "name": "TED Talk - The puzzle of motivation",
+      "success": true,
+      "quality_score": 1.0,
+      "sentiment_accuracy": 1.0,
+      "transcript_quality": 1.0,
+      "latency": 1.2643771171569824,
+      "num_summary_points": 5,
+      "summary_preview": [
+        "Dan Pink discusses motivation at work, highlighting that financial incentives don't work for cognitive tasks",
+        "Autonomy, mastery, and purpose drive intrinsic motivation, leading to better performance"
+      ]
+    },
+    {
+      "id": "case_2",
+      "name": "Rick Astley - Never Gonna Give You Up",
+      "success": true,
+      "quality_score": 0.8,
+      "sentiment_accuracy": 1.0,
+      "transcript_quality": 1.0,
+      "latency": 0.8008866310119629,
+      "num_summary_points": 5,
+      "summary_preview": [
+        "Rick Astley's song 'Never Gonna Give You Up' is about commitment and loyalty",
+        "The song became an internet meme known as Rickrolling"
+      ]
+    },
+    {
+      "id": "case_3",
+      "name": "Computer Science - Algorithms",
+      "success": true,
+      "quality_score": 1.0,
+      "sentiment_accuracy": 1.0,
+      "transcript_quality": 1.0,
+      "latency": 0.6074535846710205,
+      "num_summary_points": 5,
+      "summary_preview": [
+        "Algorithms are step-by-step procedures for solving problems",
+        "Data structures organize information efficiently"
+      ]
+    },
+    {
+      "id": "case_4",
+      "name": "Product Review - Tech",
+      "success": true,
+      "quality_score": 0.4,
+      "sentiment_accuracy": 0.0,
+      "transcript_quality": 1.0,
+      "latency": 0.5084915161132812,
+      "num_summary_points": 5,
+      "summary_preview": [
+        "The product has excellent build quality with premium materials",
+        "Performance meets expectations for most tasks"
+      ]
+    },
+    {
+      "id": "case_5",
+      "name": "AI Explained - Machine Learning",
+      "success": true,
+      "quality_score": 0.4,
+      "sentiment_accuracy": 1.0,
+      "transcript_quality": 1.0,
+      "latency": 0.8241026401519775,
+      "num_summary_points": 5,
+      "summary_preview": [
+        "Artificial intelligence is explained through the concept of machine learning",
+        "Neural networks are inspired by the human brain, enabling complex tasks"
+      ]
+    }
+  ],
+  "failure_results": [
+    {
+      "id": "failure_1",
+      "name": "Invalid Video ID",
+      "properly_handled": false,
+      "status": 200,
+      "error": null
+    },
+    {
+      "id": "failure_2",
+      "name": "Non-YouTube URL",
+      "properly_handled": true,
+      "status": 400,
+      "error": {
+        "error": "Invalid YouTube URL",
+        "message": "Please provide a valid YouTube URL (youtube.com/watch?v=... or youtu.be/...)"
+      }
+    }
+  ],
+  "summary": {
+    "end_to_end_success_rate": 1.0,
+    "avg_quality_score": 0.72,
+    "avg_sentiment_accuracy": 0.8,
+    "avg_transcript_quality": 1.0,
+    "avg_latency_seconds": 0.8010622978210449,
+    "failure_handling_rate": 0.5,
+    "total_tests": 7
+  }
+}
